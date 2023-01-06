@@ -8,11 +8,14 @@ type FullRawBarber = RawBarber & {
 
 export class BarberMapper {
   static toDomain(raw: FullRawBarber): Barber {
-    return new Barber({
-      name: raw.name,
-      pictureUrl: raw.pictureUrl,
-      slots: raw.slots.map((slot) => slot.value),
-      workingDays: raw.workingDays.map((workingDay) => workingDay.day),
-    });
+    return new Barber(
+      {
+        name: raw.name,
+        pictureUrl: raw.pictureUrl,
+        slots: raw.slots.map((slot) => slot.value),
+        workingDays: raw.workingDays.map((workingDay) => workingDay.day),
+      },
+      raw.id,
+    );
   }
 }

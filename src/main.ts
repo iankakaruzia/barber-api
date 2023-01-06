@@ -1,5 +1,5 @@
 import { PrismaService } from '@infra/database/prisma/prisma.service';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -11,6 +11,8 @@ async function bootstrap() {
   });
 
   app.enableCors();
+
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
