@@ -1,5 +1,6 @@
 import { Entity } from '@core/base/entity';
 import { parseDayIndexToString } from '@shared/helpers/day';
+import { InvalidAppointmentException } from '../errors/invalid-appointment.error';
 import { Barber } from './barber.entity';
 import { User } from './user.entity';
 
@@ -20,7 +21,7 @@ export class Appointment extends Entity {
     const isWorkingDay = this.validateWorkingDay(props.date, props.barber);
 
     if (!isSlotValid || !isWorkingDay) {
-      throw new Error('Invalid appointment');
+      throw new InvalidAppointmentException();
     }
 
     this.props = props;

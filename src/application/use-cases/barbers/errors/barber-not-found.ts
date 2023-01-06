@@ -1,6 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 
-export class BarberNotFound extends NotFoundException {
+export class BarberNotFoundException extends NotFoundException {
   constructor() {
     super('Barber not found');
   }
