@@ -21,6 +21,8 @@
     "paths": {
       "@core/*": ["./src/core/*"],
       "@shared/*": ["./src/shared/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@application/*": ["./src/application/*"],
       "@test/*": ["./test/*"]
     }
   }
