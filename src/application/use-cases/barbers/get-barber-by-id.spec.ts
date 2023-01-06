@@ -15,4 +15,13 @@ describe('Get Barber By ID', () => {
 
     expect(barber).toEqual(barberMock);
   });
+
+  it('should throw BarberNotFound if barber does not exist', async () => {
+    const barbersRepository = new InMemoryBarbersRepository();
+    const getBarberById = new GetBarberById(barbersRepository);
+
+    await expect(
+      getBarberById.execute('non-existing-id'),
+    ).rejects.toThrowError();
+  });
 });
