@@ -1,4 +1,5 @@
 import { GetBarbers } from '@application/use-cases/barbers/get-barbers';
+import { BarberViewModel } from '@infra/http/view-models/barber.view-model';
 import { Controller, Get } from '@nestjs/common';
 
 @Controller('v1/barbers')
@@ -8,6 +9,6 @@ export class BarbersController {
   @Get()
   async getAllBarbers() {
     const { barbers } = await this.getBarbers.execute();
-    return { barbers };
+    return { barbers: barbers.map(BarberViewModel.toHTTP) };
   }
 }
