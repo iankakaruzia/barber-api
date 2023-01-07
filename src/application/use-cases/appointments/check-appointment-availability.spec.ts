@@ -1,6 +1,6 @@
 import { Appointment } from '@core/domain/entities/appointment.entity';
-import { User } from '@core/domain/entities/user.entity';
 import { makeBarber } from '@test/factories/barber.factory';
+import { makeUser } from '@test/factories/user.factory';
 import { InMemoryAppointmentsRepository } from '@test/repositories/in-memory-appointments.repository';
 import { CheckAppointmentAvailability } from './check-appointment-availability';
 
@@ -41,10 +41,7 @@ describe('Check Appointment Availability', () => {
         barber,
         date: new Date('01/02/2023'),
         slot: '10:00',
-        user: new User({
-          name: 'John Doe',
-          email: 'johndoe@email.com',
-        }),
+        user: makeUser(),
       }),
     );
 

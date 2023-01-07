@@ -6,10 +6,9 @@ import { Injectable } from '@nestjs/common';
 
 interface MakeAppointmentInput {
   barber: Barber;
+  user: User;
   date: Date;
   slot: string;
-  clientName: string;
-  clientEmail: string;
 }
 
 interface MakeAppointmentOutput {
@@ -23,14 +22,13 @@ export class MakeAppointment {
   async execute({
     barber,
     date,
-    clientEmail,
-    clientName,
+    user,
     slot,
   }: MakeAppointmentInput): Promise<MakeAppointmentOutput> {
     const appointment = new Appointment({
       barber,
       date,
-      user: new User({ email: clientEmail, name: clientName }),
+      user,
       slot,
     });
 

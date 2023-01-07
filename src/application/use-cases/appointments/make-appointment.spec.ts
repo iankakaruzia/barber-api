@@ -1,4 +1,5 @@
 import { makeBarber } from '@test/factories/barber.factory';
+import { makeUser } from '@test/factories/user.factory';
 import { InMemoryAppointmentsRepository } from '@test/repositories/in-memory-appointments.repository';
 import { MakeAppointment } from './make-appointment';
 
@@ -15,8 +16,7 @@ describe('Make Appointment', () => {
     const { appointment } = await makeAppointment.execute({
       barber,
       date: new Date('01/02/2023'),
-      clientEmail: 'janedoe@email.com',
-      clientName: 'Jane Doe',
+      user: makeUser(),
       slot: '10:00',
     });
 

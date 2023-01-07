@@ -30,6 +30,9 @@ export class PrismaAppointmentsRepository implements AppointmentsRepository {
         slot,
         date,
       },
+      include: {
+        user: true,
+      },
     });
 
     return raw.map((appointment) =>

@@ -1,3 +1,4 @@
+import { Role } from '@shared/enums/role.enum';
 import { User } from './user.entity';
 
 describe('User Entity', () => {
@@ -5,6 +6,9 @@ describe('User Entity', () => {
     const user = new User({
       email: 'janedoe@email.com',
       name: 'Jane Doe',
+      password: '123456',
+      role: Role.User,
+      pictureUrl: 'https://example.com/picture.png',
     });
 
     expect(user).toBeInstanceOf(User);

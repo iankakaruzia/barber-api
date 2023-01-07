@@ -1,10 +1,4 @@
-import {
-  IsDateString,
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsDateString, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateAppointmentDto {
   @IsUUID()
@@ -16,11 +10,4 @@ export class CreateAppointmentDto {
   @IsString()
   @IsNotEmpty()
   slot: string;
-
-  @IsString()
-  @IsNotEmpty()
-  clientName: string;
-
-  @IsEmail()
-  clientEmail: string;
 }

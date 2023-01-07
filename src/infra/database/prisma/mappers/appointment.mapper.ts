@@ -1,13 +1,16 @@
-import { Appointment as RawAppointment } from '@prisma/client';
+import { Appointment as RawAppointment, User as RawUser } from '@prisma/client';
 import { Appointment } from '@core/domain/entities/appointment.entity';
-import { User } from '@core/domain/entities/user.entity';
 import { Barber } from '@core/domain/entities/barber.entity';
+import { UserMapper } from './user.mapper';
+
+interface FullRawAppointment extends RawAppointment {
+  user: RawUser;
+}
 
 export class AppointmentMapper {
   static toPersistence(appointment: Appointment) {
     return {
-      clientEmail: appointment.user.email,
-      clientName: appointment.user.name,
+      userId: appointment.user.id,
       date: appointment.date,
       id: appointment.id,
       slot: appointment.slot,
@@ -15,16 +18,13 @@ export class AppointmentMapper {
     };
   }
 
-  static toDomain(raw: RawAppointment, barber: Barber): Appointment {
+  static toDomain(raw: FullRawAppointment, barber: Barber): Appointment {
     return new Appointment(
       {
         barber: barber,
+        user: UserMapper.toDomain(raw.user),
         date: raw.date,
         slot: raw.slot,
-        user: new User({
-          email: raw.clientEmail,
-          name: raw.clientName,
-        }),
       },
       raw.id,
     );

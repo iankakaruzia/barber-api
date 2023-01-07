@@ -36,12 +36,24 @@ model WorkingDay {
   barber   Barber @relation(fields: [barberId], references: [id])
 }
 
+model User {
+  id         String  @id
+  name       String
+  email      String  @unique
+  password   String
+  pictureUrl String?
+  role       String  @default("USER")
+
+  appointments Appointment[]
+}
+
 model Appointment {
-  id          String   @id
-  date        DateTime
-  slot        String
-  clientName  String
-  clientEmail String
+  id   String   @id
+  date DateTime
+  slot String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   barberId String
   barber   Barber @relation(fields: [barberId], references: [id])
