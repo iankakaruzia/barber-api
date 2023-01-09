@@ -17,9 +17,9 @@ export class CheckAppointmentAvailability {
   async execute(
     input: CheckAppointmentAvailabilityInput,
   ): Promise<CheckAppointmentAvailabilityOutput> {
-    const appointments =
-      await this.appointmentsRepository.findManyByAppointment(input);
+    const appointmentsCount =
+      await this.appointmentsRepository.countManyByAppointment(input);
 
-    return appointments.length === 0;
+    return appointmentsCount === 0;
   }
 }

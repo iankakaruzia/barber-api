@@ -11,16 +11,16 @@ export class InMemoryAppointmentsRepository implements AppointmentsRepository {
     this.appointments.push(appointment);
   }
 
-  async findManyByAppointment({
+  async countManyByAppointment({
     barber,
     date,
     slot,
-  }: FindManyByAppointmentArgs): Promise<Appointment[]> {
+  }: FindManyByAppointmentArgs): Promise<number> {
     return this.appointments.filter(
       (appointment) =>
         appointment.barber.id === barber.id &&
         appointment.date.getTime() === date.getTime() &&
         appointment.slot === slot,
-    );
+    ).length;
   }
 }

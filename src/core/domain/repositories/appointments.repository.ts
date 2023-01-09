@@ -9,7 +9,7 @@ export interface FindManyByAppointmentArgs {
 
 export abstract class AppointmentsRepository {
   abstract create(appointment: Appointment): Promise<void>;
-  abstract findManyByAppointment(
+  abstract countManyByAppointment(
     args: FindManyByAppointmentArgs,
-  ): Promise<Appointment[]>;
+  ): Promise<number>;
 }

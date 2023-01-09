@@ -19,24 +19,19 @@ export class PrismaAppointmentsRepository implements AppointmentsRepository {
     });
   }
 
-  async findManyByAppointment({
+  async countManyByAppointment({
     barber,
     slot,
     date,
-  }: FindManyByAppointmentArgs): Promise<Appointment[]> {
-    const raw = await this.prisma.appointment.findMany({
+  }: FindManyByAppointmentArgs): Promise<number> {
+    const appointmentsCount = await this.prisma.appointment.count({
       where: {
         barberId: barber.id,
         slot,
         date,
       },
-      include: {
-        user: true,
-      },
     });
 
-    return raw.map((appointment) =>
-      AppointmentMapper.toDomain(appointment, barber),
-    );
+    return appointmentsCount;
   }
 }
