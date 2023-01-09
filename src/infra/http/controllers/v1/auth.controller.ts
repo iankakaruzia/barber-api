@@ -6,8 +6,15 @@ import { LocalAuthGuard } from '@infra/http/auth/guards/local.guard';
 import { JwtPayload } from '@infra/http/auth/interfaces/jwt-payload.interface';
 import { CreateUserDto } from '@infra/http/dtos/create-user.dto';
 import { UserViewModel } from '@infra/http/view-models/user.view-model';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { GetUserByEmail } from '@application/use-cases/users/get-user-by-email';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -15,6 +22,7 @@ export class AuthController {
     private readonly jwtService: JwtService,
     private readonly createUser: CreateUser,
     private readonly cryptography: CryptographyProtocol,
+    private readonly getUserByEmail: GetUserByEmail,
   ) {}
 
   @UseGuards(LocalAuthGuard)
@@ -28,6 +36,14 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
+    const { user: userAlreadyExists } = await this.getUserByEmail.execute(
+      createUserDto.email,
+    );
+
+    if (userAlreadyExists) {
+      throw new BadRequestException('Invalid credentials');
+    }
+
     const hashedPassword = await this.cryptography.hash(createUserDto.password);
 
     const { user } = await this.createUser.execute({
