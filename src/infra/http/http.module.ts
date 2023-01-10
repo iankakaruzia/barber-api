@@ -1,5 +1,6 @@
 import { CheckAppointmentAvailability } from '@application/use-cases/appointments/check-appointment-availability';
 import { MakeAppointment } from '@application/use-cases/appointments/make-appointment';
+import { AddBarber } from '@application/use-cases/barbers/add-barber';
 import { GetBarberById } from '@application/use-cases/barbers/get-barber-by-id';
 import { GetBarbers } from '@application/use-cases/barbers/get-barbers';
 import { CreateUser } from '@application/use-cases/users/create-user';
@@ -33,6 +34,7 @@ import { BarbersController } from './controllers/v1/barbers.controller';
     CheckAppointmentAvailability,
     GetUserByEmail,
     CreateUser,
+    AddBarber,
     LocalStrategy,
     JwtStrategy,
   ],

@@ -36,4 +36,12 @@ export class PrismaBarbersRepository implements BarbersRepository {
 
     return barbers.map(BarberMapper.toDomain);
   }
+
+  async create(barber: Barber): Promise<void> {
+    const raw = BarberMapper.toPersistence(barber);
+
+    await this.prisma.barber.create({
+      data: raw,
+    });
+  }
 }

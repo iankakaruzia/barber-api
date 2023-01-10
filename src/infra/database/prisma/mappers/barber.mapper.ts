@@ -7,6 +7,26 @@ type FullRawBarber = RawBarber & {
 };
 
 export class BarberMapper {
+  static toPersistence(barber: Barber) {
+    return {
+      id: barber.id,
+      name: barber.name,
+      pictureUrl: barber.pictureUrl,
+      slots: {
+        create: barber.slots.map((slot) => ({
+          barberId: barber.id,
+          value: slot,
+        })),
+      },
+      workingDays: {
+        create: barber.workingDays.map((workingDay) => ({
+          barberId: barber.id,
+          day: workingDay,
+        })),
+      },
+    };
+  }
+
   static toDomain(raw: FullRawBarber): Barber {
     return new Barber(
       {

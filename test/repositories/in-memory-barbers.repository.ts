@@ -4,7 +4,7 @@ import { BarbersRepository } from '@core/domain/repositories/barbers.repository'
 export class InMemoryBarbersRepository implements BarbersRepository {
   public barbers: Barber[] = [];
 
-  create(barber: Barber): void {
+  async create(barber: Barber): Promise<void> {
     this.barbers.push(barber);
   }
 
